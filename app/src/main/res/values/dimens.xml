@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tamaño_letra">25sp</dimen>
+    <dimen name="tamaño_letra_for">20sp</dimen>
+    <dimen name="espacio_top">25sp</dimen>
+</resources>

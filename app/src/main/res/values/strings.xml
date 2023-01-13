@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AppInclusiva</string>
+    <string name="nombre">Nombre:</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="edad">Edad:</string>
+    <string name="correo">Correo:</string>
+    <string name="btnAceptar">Aceptar</string>
+    <string name="titulo2">Validar Datos</string>
+    <string name="btnOk">Ok</string>
+</resources>
