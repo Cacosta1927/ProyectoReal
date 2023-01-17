@@ -111,7 +111,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/clSoporte"
             android:layout_width="265dp"
             android:layout_height="58dp"
             android:layout_marginTop="15dp"
@@ -152,6 +152,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clJuegoo"
             android:layout_width="262dp"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
@@ -159,7 +160,7 @@
             app:layout_constraintBottom_toTopOf="@+id/clExit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/clSoporte">
 
             <ImageView
                 android:id="@+id/imageView"

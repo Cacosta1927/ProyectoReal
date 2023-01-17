@@ -1,8 +1,5 @@
 package com.example.proye;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 public class Home extends AppCompatActivity {
     ImageView imMenu;
-    ConstraintLayout clMenu,clBanner,clExit;
+    ConstraintLayout clMenu,clsoporte,clExit,clJuego;
     Boolean menuact = false;
     TextView tvCuenta;
 
@@ -23,12 +23,13 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         imMenu = findViewById(R.id.imMenu);
         clMenu = findViewById(R.id.clMenu);
-        clBanner = findViewById(R.id.clBanner);
+        clsoporte = findViewById(R.id.clSoporte);
         clExit = findViewById(R.id.clExit);
         tvCuenta =findViewById(R.id.tvCuenta);
+        clJuego = findViewById(R.id.clJuegoo);
+        Bundle usuario = getIntent().getExtras();
+        String prueba = usuario.getString("email");
 
-        Bundle varapellido = getIntent().getExtras();
-        String prueba = varapellido.getString("ape") + " " + varapellido.getString("nombre");
         tvCuenta.setText(prueba);
 
         imMenu.setOnClickListener(new View.OnClickListener() {
@@ -36,25 +37,47 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 if (menuact){
                     clMenu.setVisibility(View.GONE);
-                    clBanner.setVisibility(View.VISIBLE);
+                    clsoporte.setVisibility(View.VISIBLE);
                     menuact = false;
                 }
                 else{
                     clMenu.setVisibility(View.VISIBLE);
-                    clBanner.setVisibility(View.GONE);
+                    clsoporte.setVisibility(View.GONE);
                     menuact = true;
                 }
             }
         });
+
+      /* /clJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clMenu.setVisibility(View.GONE);
+                clsoporte.setVisibility(View.VISIBLE);
+                menuact = false;
+                Intent intent = new Intent(Home.this, Juego.class);
+                startActivity(intent);
+            }
+        });*/
+        clJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //String var = etEmail.getText().toString();
+                Intent intent = new Intent(Home.this,Juego.class);
+                startActivity(intent);
+            }
+        });
+
         clExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clMenu.setVisibility(View.GONE);
-                clBanner.setVisibility(View.VISIBLE);
+                clsoporte.setVisibility(View.VISIBLE);
                 menuact = false;
                 Intent intent = new Intent(Home.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+
     }
 }

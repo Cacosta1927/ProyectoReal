@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Proye"
         tools:targetApi="31">
         <activity
+            android:name=".Juego"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MostrarDatos"
             android:exported="false">
             <meta-data
