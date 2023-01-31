@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Home extends AppCompatActivity {
     ImageView imMenu;
-    ConstraintLayout clMenu,clsoporte,clExit,clJuego;
+    ConstraintLayout clMenu,clsoporte,clExit,clJuego,clPueba;
     Boolean menuact = false;
     TextView tvCuenta;
 
@@ -27,6 +27,7 @@ public class Home extends AppCompatActivity {
         clExit = findViewById(R.id.clExit);
         tvCuenta =findViewById(R.id.tvCuenta);
         clJuego = findViewById(R.id.clJuegoo);
+        clPueba = findViewById(R.id.clPrueba);
         Bundle usuario = getIntent().getExtras();
         String prueba = usuario.getString("email");
 
@@ -37,12 +38,10 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 if (menuact){
                     clMenu.setVisibility(View.GONE);
-                    clsoporte.setVisibility(View.VISIBLE);
                     menuact = false;
                 }
                 else{
                     clMenu.setVisibility(View.VISIBLE);
-                    clsoporte.setVisibility(View.GONE);
                     menuact = true;
                 }
             }
@@ -63,6 +62,15 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 //String var = etEmail.getText().toString();
                 Intent intent = new Intent(Home.this,Juego.class);
+                startActivity(intent);
+            }
+        });
+
+        clPueba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //String var = etEmail.getText().toString();
+                Intent intent = new Intent(Home.this,Prueba.class);
                 startActivity(intent);
             }
         });
