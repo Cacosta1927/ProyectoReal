@@ -3,6 +3,7 @@ package com.example.proye;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -11,6 +12,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +22,8 @@ import org.json.JSONObject;
 
 public class Prueba extends AppCompatActivity {
 
-    TextView tvOficina, tvCantidad;
+    TextView tvOficina, tvCantidad, tvLog, tvNomproduc;
+    ImageView ivProducto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +35,26 @@ public class Prueba extends AppCompatActivity {
 
 
     //funcion para capturar Json
-    private void GET(){
-
+    public void GET(){
         // Instantiate the RequestQueue.
         tvOficina = findViewById(R.id.tvOficinas);
         tvCantidad = findViewById(R.id.tvCantidad);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://elsunnyburguer.000webhostapp.com/api/query_all_total.php?tipo=1";
+        tvLog = findViewById(R.id.tvLog4);
+        tvNomproduc = findViewById(R.id.tvNomProduc2);
+        ivProducto = findViewById(R.id.ivProducto);
 
-        Log.d("URL", url);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String urlcategorias = "https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=2";
+        Log.d("URL", urlcategorias);
+
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlcategorias,
+
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+
                         // Display the first 500 characters of the response string.
                         Log.e("VOLLEY exitosa", response);
 
@@ -63,11 +73,21 @@ public class Prueba extends AppCompatActivity {
 
                                 contenidoJSON = jsonObject.getJSONArray("oficinas"); //estado es el nombre del campo en el JSON
 
-                                String totales = contenidoJSON.getJSONObject(0).getString("tCantidad");
+
+                                String id = contenidoJSON.getJSONObject(0).getString("id");
+                                tvOficina.setText(id);
+
+                                String totales = contenidoJSON.getJSONObject(0).getString("descripcion");
                                 tvCantidad.setText(totales);
                                 Log.d("JSON",totales);
 
+                                String logjson = contenidoJSON.getJSONObject(0).getString("log");
+                                tvLog.setText(logjson);
 
+                                String nomproducto = contenidoJSON.getJSONObject(0).getString("nombre");
+                                tvNomproduc.setText(nomproducto);
+                                String fotoProducto = contenidoJSON.getJSONObject(0).getString("imagen");
+                               pintarFoto(fotoProducto);
 
                             }
 
@@ -81,10 +101,19 @@ public class Prueba extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("VOLLEY", "That didn't work!");
             }
+
         });
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }
+
+
+    public void pintarFoto(String foto){
+        ivProducto = findViewById(R.id.ivProducto);
+        Glide.with(this).load(foto).into(ivProducto);
+    }
+
+
 }

@@ -8,6 +8,46 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tvLog3"
+        android:layout_width="79dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="136dp"
+        android:text="Log Producto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado" />
+
+    <TextView
+        android:id="@+id/tvLog4"
+        android:layout_width="85dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="136dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tvCantidad1"
+        app:layout_constraintTop_toBottomOf="@+id/tvOficinas" />
+
+    <TextView
+        android:id="@+id/tvNomProduc"
+        android:layout_width="79dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="216dp"
+        android:text="Nom Produc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado" />
+
+    <TextView
+        android:id="@+id/tvNomProduc2"
+        android:layout_width="85dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="224dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tvCantidad1"
+        app:layout_constraintTop_toBottomOf="@+id/tvOficinas" />
+
+    <TextView
         android:id="@+id/tvOficinas"
         android:layout_width="84dp"
         android:layout_height="32dp"
@@ -35,7 +75,7 @@
         android:layout_height="39dp"
         android:layout_marginStart="34dp"
         android:layout_marginTop="104dp"
-        android:text="Estado"
+        android:text="Id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,8 +85,22 @@
         android:layout_height="43dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
-        android:text="Cantidad"
+        android:text="Categoria"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEstado" />
+
+    <ImageView
+        android:id="@+id/ivProducto"
+        android:layout_width="234dp"
+        android:layout_height="156dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="459dp"
+        android:layout_marginEnd="165dp"
+        android:layout_marginBottom="144dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

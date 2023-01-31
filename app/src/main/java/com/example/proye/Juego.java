@@ -166,7 +166,6 @@ public class Juego extends AppCompatActivity {
 
         //Libreria Glide para cargar las imagenes de internet
         Glide.with(this).load(mDataArticulo.get(valorDadoA).getImagen()).into(imgObjeto);
-
         //Cargar lista de Opciones
 
         mData = new ArrayList<>();
