@@ -5,10 +5,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.os.CountDownTimer;
 
 import com.bumptech.glide.Glide;
 import com.example.proye.Adaptadores.AdapterOpciones;
@@ -18,6 +27,7 @@ import com.example.proye.Util.Variables;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Juego extends AppCompatActivity {
     //Nuestros 3 objetos principales
@@ -100,17 +110,65 @@ public class Juego extends AppCompatActivity {
 
         //Cargar Imagen principal
 
-        mDataArticulo = new ArrayList<>();
+        mDataArticulo = new ArrayList<>(); GET();
+        final int[] valorDadoA = {0};
 
-        mDataArticulo.add(new mArticulos("51","2","Clasico","https://thumbs.dreamstime.com/z/carro-antiguo-14103935.jpg"));
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //resutlado.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+
+                valorDadoA[0] = (int)Math.floor(Math.random()*mDataArticulo.size());
+
+                variables.id = mDataArticulo.get(valorDadoA[0]).getId();
+
+                //Libreria Glide para cargar las imagenes de internet
+                Glide.with(Juego.this).load(mDataArticulo.get(valorDadoA[0]).getImagen()).into(imgObjeto);
+
+                //Cargar lista de Opciones
+
+                mData = new ArrayList<>();
+
+                mData.add(new mOpciones("0", mDataArticulo.get(valorDadoA[0]).getId(),mDataArticulo.get(valorDadoA[0]).getNombre()));
+
+                mDataArticulo.remove(valorDadoA[0]);
+
+                //Bucle for para los articulos de forma aleatoria
+                for (int i = 0; i <= 2; i = i + 1){
+                    int valorDadol = (int)Math.floor(Math.random()*mDataArticulo.size());
+                    Log.d("Valor", String.valueOf(valorDadol));
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getId());
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getNombre());
+                    String id = mDataArticulo.get(valorDadol).getId();
+                    String nombre = mDataArticulo.get(valorDadol).getNombre();
+                    mDataArticulo.remove(valorDadol);
+                    mData.add(new mOpciones(String.valueOf(i), id, nombre));
+
+                }
+
+                adapterOpciones = new AdapterOpciones(Juego.this, mData);
+                rvOpciones.setAdapter(adapterOpciones);
+                rvOpciones.setLayoutManager(new LinearLayoutManager(Juego.this));
+
+            }
+        }.start();
+
+
+
+  /*      mDataArticulo.add(new mArticulos("51","2","Clasico","https://thumbs.dreamstime.com/z/carro-antiguo-14103935.jpg"));
         mDataArticulo.add(new mArticulos("52","2","Deportivo","http://www.elistas.net/lista/mundo-autos/archivo/indice/221/msg/261/cid/image001.jpg"));
         mDataArticulo.add(new mArticulos("53","2","elegante","https://haciendofotos.com/wp-content/uploads/fotos-de-coches-fotos-de-coches-de-lujo-maserati-pixabay.jpg"));
         mDataArticulo.add(new mArticulos("54","2","Convertible","https://queautocompro.com/wp-content/uploads/2013/07/NewportConvertibleJaguarXJLCabriolet_01-(Copiar).jpg"));
         mDataArticulo.add(new mArticulos("55","2","Jeep","https://s3.envato.com/files/85505101/Jeep_Wrangler_Polar_2014_%20(12).jpg"));
         mDataArticulo.add(new mArticulos("56","2","Hibrido","https://www.somosindustria.com/media/img/socials/fb_Autos-hibridos_01-19.jpg"));
         mDataArticulo.add(new mArticulos("57","2","Electrico","https://static1.elcorreo.com/www/multimedia/202002/14/media/cortadas/coches-electricos-kSiC-U100156048802qtF-624x385@El%20Correo.jpg"));
+*/
 
-        //Valor aletorio para eleccion del articulo principal
+
+      /*  //Valor aletorio para eleccion del articulo principal
         int valorDadoA = (int)Math.floor(Math.random()*mDataArticulo.size());
 
         variables.id = mDataArticulo.get(valorDadoA).getId();
@@ -141,7 +199,7 @@ public class Juego extends AppCompatActivity {
 
         adapterOpciones = new AdapterOpciones(this, mData);
         rvOpciones.setAdapter(adapterOpciones);
-        rvOpciones.setLayoutManager(new LinearLayoutManager(this));
+        rvOpciones.setLayoutManager(new LinearLayoutManager(this));*/
 
     }
 
@@ -253,4 +311,69 @@ public class Juego extends AppCompatActivity {
         rvOpciones.setLayoutManager(new LinearLayoutManager(this));
 
     }
+    public void GET(){
+        mDataArticulo = new ArrayList<>();
+
+        // Instantiate the RequestQueue.
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String urlcategorias = "https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=1";
+        Log.d("URL", urlcategorias);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlcategorias,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        // Display the first 500 characters of the response string.
+                        Log.e("VOLLEY exitosa", response);
+
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+
+                            String resultJSON = jsonObject.getString("estado");//Estado es el nombre del campo en el JSON
+                            //tvOficina.setText(resultJSON);
+
+                            Log.d("JSON", resultJSON.toString());
+
+                            JSONArray contenidoJSON;
+
+                            if (resultJSON.equals("1")){ //hay datos a mostrar
+
+                                contenidoJSON = jsonObject.getJSONArray("oficinas"); //estado es el nombre del campo en el JSON
+                                for (int i = 0; i <= contenidoJSON.length(); i = i + 1){
+
+                                    String id = contenidoJSON.getJSONObject(i).getString("id");
+                                    String descripcion = contenidoJSON.getJSONObject(i).getString("descripcion");
+                                    String nombre = contenidoJSON.getJSONObject(i).getString("nombre");
+                                    String fotoProducto = contenidoJSON.getJSONObject(i).getString("imagen");
+
+                                    mDataArticulo.add(new mArticulos(id, id, nombre, fotoProducto));
+
+                                }
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VOLLEY", "That didn't work!");
+            }
+
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
 }
