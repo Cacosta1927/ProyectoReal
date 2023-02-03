@@ -110,7 +110,7 @@ public class Juego extends AppCompatActivity {
 
         //Cargar Imagen principal
 
-        mDataArticulo = new ArrayList<>(); GET();
+        mDataArticulo = new ArrayList<>(); GET("https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=1");
         final int[] valorDadoA = {0};
 
         new CountDownTimer(1000, 1000) {
@@ -206,8 +206,63 @@ public class Juego extends AppCompatActivity {
     private void Motos(){
 
         //Cargar Imagen principal
+        mDataArticulo = new ArrayList<>(); GET("https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=2");
+        final int[] valorDadoA = {0};
 
-        mDataArticulo = new ArrayList<>();
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //resutlado.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+
+                valorDadoA[0] = (int)Math.floor(Math.random()*mDataArticulo.size());
+
+                variables.id = mDataArticulo.get(valorDadoA[0]).getId();
+
+                //Libreria Glide para cargar las imagenes de internet
+                Glide.with(Juego.this).load(mDataArticulo.get(valorDadoA[0]).getImagen()).into(imgObjeto);
+
+                //Cargar lista de Opciones
+
+                mData = new ArrayList<>();
+
+                mData.add(new mOpciones("0", mDataArticulo.get(valorDadoA[0]).getId(),mDataArticulo.get(valorDadoA[0]).getNombre()));
+
+                mDataArticulo.remove(valorDadoA[0]);
+
+                //Bucle for para los articulos de forma aleatoria
+                for (int i = 0; i <= 2; i = i + 1){
+                    int valorDadol = (int)Math.floor(Math.random()*mDataArticulo.size());
+                    Log.d("Valor", String.valueOf(valorDadol));
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getId());
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getNombre());
+                    String id = mDataArticulo.get(valorDadol).getId();
+                    String nombre = mDataArticulo.get(valorDadol).getNombre();
+                    mDataArticulo.remove(valorDadol);
+                    mData.add(new mOpciones(String.valueOf(i), id, nombre));
+
+                }
+
+                adapterOpciones = new AdapterOpciones(Juego.this, mData);
+                rvOpciones.setAdapter(adapterOpciones);
+                rvOpciones.setLayoutManager(new LinearLayoutManager(Juego.this));
+
+            }
+        }.start();
+
+
+
+
+
+
+
+
+
+
+
+      /*  mDataArticulo = new ArrayList<>();
 
         mDataArticulo.add(new mArticulos("1", "1","Ducati","https://www.enter.co/wp-content/uploads/2018/09/02-PANIGALE-V4-S_UC35011_High-768x432.jpg"));
         mDataArticulo.add(new mArticulos("2","1","Dominar","https://static.wixstatic.com/media/2c5853_fbf0f28141674515b7d679fc7f0218b5~mv2.jpg/v1/fill/w_952,h_652,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/2c5853_fbf0f28141674515b7d679fc7f0218b5~mv2.jpg"));
@@ -248,7 +303,7 @@ public class Juego extends AppCompatActivity {
 
         adapterOpciones = new AdapterOpciones(this, mData);
         rvOpciones.setAdapter(adapterOpciones);
-        rvOpciones.setLayoutManager(new LinearLayoutManager(this));
+        rvOpciones.setLayoutManager(new LinearLayoutManager(this));*/
 
     }
 
@@ -256,7 +311,63 @@ public class Juego extends AppCompatActivity {
 
         //Cargar Imagen principal
 
-        mDataArticulo = new ArrayList<>();
+        mDataArticulo = new ArrayList<>(); GET("https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=4");
+        final int[] valorDadoA = {0};
+
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //resutlado.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+
+                valorDadoA[0] = (int)Math.floor(Math.random()*mDataArticulo.size());
+
+                variables.id = mDataArticulo.get(valorDadoA[0]).getId();
+
+                //Libreria Glide para cargar las imagenes de internet
+                Glide.with(Juego.this).load(mDataArticulo.get(valorDadoA[0]).getImagen()).into(imgObjeto);
+
+                //Cargar lista de Opciones
+
+                mData = new ArrayList<>();
+
+                mData.add(new mOpciones("0", mDataArticulo.get(valorDadoA[0]).getId(),mDataArticulo.get(valorDadoA[0]).getNombre()));
+
+                mDataArticulo.remove(valorDadoA[0]);
+
+                //Bucle for para los articulos de forma aleatoria
+                for (int i = 0; i <= 2; i = i + 1){
+                    int valorDadol = (int)Math.floor(Math.random()*mDataArticulo.size());
+                    Log.d("Valor", String.valueOf(valorDadol));
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getId());
+                    Log.d("Valor", mDataArticulo.get(valorDadol).getNombre());
+                    String id = mDataArticulo.get(valorDadol).getId();
+                    String nombre = mDataArticulo.get(valorDadol).getNombre();
+                    mDataArticulo.remove(valorDadol);
+                    mData.add(new mOpciones(String.valueOf(i), id, nombre));
+
+                }
+
+                adapterOpciones = new AdapterOpciones(Juego.this, mData);
+                rvOpciones.setAdapter(adapterOpciones);
+                rvOpciones.setLayoutManager(new LinearLayoutManager(Juego.this));
+
+            }
+        }.start();
+
+
+
+
+
+
+
+
+
+
+
+    /*    mDataArticulo = new ArrayList<>();
 
         mDataArticulo.add(new mArticulos("51","2","Clasico","https://thumbs.dreamstime.com/z/carro-antiguo-14103935.jpg"));
         mDataArticulo.add(new mArticulos("52","2","Deportivo","http://www.elistas.net/lista/mundo-autos/archivo/indice/221/msg/261/cid/image001.jpg"));
@@ -308,16 +419,16 @@ public class Juego extends AppCompatActivity {
 
         adapterOpciones = new AdapterOpciones(this, mData);
         rvOpciones.setAdapter(adapterOpciones);
-        rvOpciones.setLayoutManager(new LinearLayoutManager(this));
+        rvOpciones.setLayoutManager(new LinearLayoutManager(this));*/
 
     }
-    public void GET(){
+    public void GET(String url){
         mDataArticulo = new ArrayList<>();
 
         // Instantiate the RequestQueue.
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String urlcategorias = "https://cursoandroid2023.000webhostapp.com/api/query_tipoCategoria.php?tipo=1";
+        String urlcategorias = url;
         Log.d("URL", urlcategorias);
 
         // Request a string response from the provided URL.
